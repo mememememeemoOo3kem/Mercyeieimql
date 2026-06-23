@@ -1516,11 +1516,16 @@ end
 									end
 									
 									print("[DEBUG] isMinigame =", Sf:CheckingIsMinigame(), "| ATM locked =", closestATM:GetAttribute(c().keys[3]))
-									if not Sf:CheckingIsMinigame() and c().AutoFarmATM then
-										print("[DEBUG] sending request_begin_hacking_3")
-										Sf:Ac("request_begin_hacking_3", closestATM, currentHackTool)
-										task.wait(1)
-									end
+if not Sf:CheckingIsMinigame() and c().AutoFarmATM then
+    -- แทนที่จะใช้ Sf:Ac ส่ง Remote ข้ามขั้นตอน ให้สั่งกด ProximityPrompt ของตู้นั้นๆ
+    local prompt = closestATM:FindFirstChildWhichIsA("ProximityPrompt", true)
+    if prompt then
+        print("[DEBUG] Triggering animation via ProximityPrompt")
+        fireproximityprompt(prompt) -- สั่งให้ตัวเกมเล่นอนิเมชั่นการแฮ็กตามปกติ
+    end
+    task.wait(2) -- เพิ่มเวลาให้ตัวเกมเล่นอนิเมชั่นก่อนจะดำเนินการต่อ
+end
+
 									
 									print("[DEBUG] isMinigame after hack =", Sf:CheckingIsMinigame())
 									if c().AutoFarmATM then
