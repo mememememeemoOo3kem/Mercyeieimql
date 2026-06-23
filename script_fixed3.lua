@@ -1520,14 +1520,7 @@ end
 										print("[DEBUG] sending request_begin_hacking_3")
 										Sf:Ac("request_begin_hacking_3", closestATM, currentHackTool)
 										task.wait(1)
-									end
-									
-									print("[DEBUG] isMinigame after hack =", Sf:CheckingIsMinigame())
-									if c().AutoFarmATM then
-										print("[DEBUG] sending atm_win_3")
-										Sf:Ac("atm_win_3", closestATM)
-										task.wait(1)
-									end
+										end
 									
 									RootPart.Anchored = false
 									task.wait(0.2)
